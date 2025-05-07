@@ -30,7 +30,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255|unique:users',
+            'NPM' => 'required|string|max:255|unique:users',
             'nama_lengkap' => 'required|string|max:255',
             'email' => [
                 'required',
@@ -65,7 +65,7 @@ class RegisterController extends Controller
 
         // Simpan data pengguna sementara di session
         $request->session()->put('registration_data', [
-            'username' => $request->username,
+            'NPM' => $request->NPM,
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -116,7 +116,7 @@ class RegisterController extends Controller
 
         // Buat user baru
         $user = User::create([
-            'username' => $registrationData['username'],
+            'NPM' => $registrationData['NPM'],
             'nama_lengkap' => $registrationData['nama_lengkap'],
             'email' => $registrationData['email'],
             'password' => $registrationData['password'],

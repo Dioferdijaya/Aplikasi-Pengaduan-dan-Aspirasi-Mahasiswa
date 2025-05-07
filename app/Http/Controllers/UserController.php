@@ -19,6 +19,29 @@ class UserController extends Controller
         return view('user.dashboard', compact('total','baru','proses','selesai'));
     }
 
+    public function dataUser(): array
+    {
+        // Jika belum login, kembalikan kosong / default
+        if (! Auth::check()) {
+            return [
+                'user' => null,
+                'baru' => 0,
+            ];
+        }
+
+        $user = Auth::user();
+
+        // Hitung pesan dengan status 'baru' untuk user ini
+        $baru = KritikSaran::where('user_id', $user->id)
+                           ->where('status', 'baru')
+                           ->count();
+
+        return [
+            'user' => $user,
+            'baru' => $baru,
+        ];
+    }
+
     // Form kirim pesan
     public function create()
     {
