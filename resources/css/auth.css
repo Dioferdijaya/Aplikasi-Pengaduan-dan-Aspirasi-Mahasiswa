@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Suara Kampus</title>
-  <style>
-    * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -29,6 +22,7 @@
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 0;
   }
   
   .header {
@@ -68,15 +62,15 @@
     color: white;
     padding: 30px;
     padding-top: 0;
-
-
   }
   
   .login-box {
+    display: flex;
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 80px;
     text-align: center;
+    z-index: 1;
   }
   
   .login-box h2 {
@@ -87,7 +81,7 @@
   }
   
   .login-box input {
-    width: 100%;
+    width: 10vw;
     padding: 10px;
     margin: 8px 0;
     border: 1px solid #ccc;
@@ -113,28 +107,3 @@
     background-color: #369e91;
   }
   
-  </style>
-<body>
-  <div class="container">
-    <div class="header">
-    <img src="/campus.jpg" alt="Gedung Kampus">
-      <div class="overlay">
-        
-        <h1>SUARA KAMPUS</h1>
-        <p class="tagline">"Dari Mahasiswa, Untuk Perubahan"</p>
-      </div>
-    </div>
-    
-    <div class="login-box">
-      <h2>LOGIN</h2>
-      <form action="halaman-pesan-user.html" method="get">
-        <input type="text" placeholder="Masukan NIP/NPM" required>
-        <input type="password" placeholder="Masukan Password" required>
-        <button type="submit">LOGIN</button>
-        <p class="mb-0">Sudah punya akun? <a href="{{ route('register') }}">daftar di sini</a></p>
-        
-      </form>
-    </div>
-  </div>
-</body>
-</html>

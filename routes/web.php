@@ -16,14 +16,15 @@ Route::post('logout',[AuthController::class,'logout'])
      ->name('logout')
      ->middleware('auth');
 
+     Route::get('dashboard', [UserController::class,'dashboard'])->name('dashboard');
+     Route::get('pesan',     [UserController::class,'create'])   ->name('pesan');
+     Route::post('pesan',    [UserController::class,'store']);
+     Route::get('riwayat',   [UserController::class,'riwayat'])  ->name('riwayat');
 // Group untuk mahasiswa/user
 Route::middleware(['auth','can:isUser'])
      ->prefix('user')->name('user.')
      ->group(function(){
-    Route::get('dashboard', [UserController::class,'dashboard'])->name('dashboard');
-    Route::get('pesan',     [UserController::class,'create'])   ->name('pesan');
-    Route::post('pesan',    [UserController::class,'store']);
-    Route::get('riwayat',   [UserController::class,'riwayat'])  ->name('riwayat');
+  
 });
 
 // Group untuk admin

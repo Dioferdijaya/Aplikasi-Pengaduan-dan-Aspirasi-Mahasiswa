@@ -1,0 +1,170 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #278a76;
+    padding: 10px 16px;
+    border-radius: 12px;
+    color: white;
+  }
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .welcome {
+    display: flex;
+    align-items: center;
+  }
+  
+  .notif {
+    position: relative;
+  }
+  
+  .badge {
+    background: red;
+    color: white;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+  }
+  
+  .nav button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    background: #e0f5ef;
+    cursor: pointer;
+  }
+  
+  .nav .active {
+    background: #278a76;
+    color: white;
+  }
+  
+  .profile-box {
+    display: flex;
+    align-items: center;
+    background: #e9f9f4;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+  
+  .profile-box img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .section-title {
+    font-weight: bold;
+    margin: 12px 0 8px;
+  }
+  
+  .suggestion-box {
+    background: #bfffe2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #278a76;
+    font-size: 14px;
+  }
+  
+  .suggestion-box i {
+    font-size: 16px;
+  }
+  
+  .suggestion-link {
+    flex: 1;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #278a76;
+    font-weight: bold;
+  }
+  
+  
+  .message-box, .reply-box {
+    background: #f6f6f6;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 8px 0;
+    border-left: 4px solid #278a76;
+  }
+  
+  .date {
+    font-size: 12px;
+    color: gray;
+    margin-top: 6px;
+  }
+  
+  .rating-section {
+    text-align: center;
+    margin-top: 16px;
+  }
+  
+  .stars button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .stars button:hover,
+  .stars button:hover ~ button {
+    color: gold;
+  }
+  
+  .rate-btn {
+    background: #278a76;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+
+  .datauser{
+    font-size: 12px;
+  }
+  
+.icon {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}

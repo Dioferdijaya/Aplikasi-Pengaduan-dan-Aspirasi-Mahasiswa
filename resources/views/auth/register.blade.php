@@ -1,190 +1,146 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Suara Kampus</title>
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    max-width: 100%;
+    /* width: 300px; */
+    min-height: 100vh;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 0;
+  }
+  
+  .header {
+    height: 180px;
+    clip-path: ellipse(100% 165% at 0% 0%);
+    background-color: rgba(0, 128, 128, 0.7);
 
-    <title>{{ config('app.name', 'Laravel') }} - Register</title>
+    position: relative;
+  }
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  .header img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    background-color: rgba(0, 128, 128, 0.515);
+  }
+  
+  .overlay h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    padding-top: 60px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+  }
+  
+  .overlay .tagline {
+    font-size: 1.1em;
+    color: white;
+    padding: 30px;
+    padding-top: 0;
 
-    <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #f8f9fa;
-            height: 100vh;
-        }
-
-        .register-container {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .register-card {
-            max-width: 500px;
-            width: 100%;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .card-header {
-            background-color: #4CD7BD;
-            color: white;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.5rem;
-            padding: 15px;
-        }
-
-        .card-body {
-            padding: 30px;
-            background-color: white;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            border-radius: 10px;
-            padding: 10px 15px;
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: #555;
-        }
-
-        .btn-register {
-            background-color: #4CD7BD;
-            border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
-            font-weight: bold;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .btn-register:hover {
-            background-color: #3bc1a8;
-        }
-
-        .card-footer {
-            background-color: #f8f9fa;
-            text-align: center;
-            padding: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .card-footer a {
-            color: #4CD7BD;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .card-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .invalid-feedback {
-            color: #dc3545;
-            font-size: 0.875em;
-            margin-top: 0.25rem;
-        }
-    </style>
-</head>
+  }
+  
+  .login-box {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 80px;
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .login-box h2 {
+    color: #2d726d;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 30px;
+  }
+  
+  .login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .login-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 12px;
+    background-color: #41bfb3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .login-box button:hover {
+    background-color: #369e91;
+  }
+  
+  </style>
 <body>
-    <div class="register-container">
-        <div class="register-card">
-            <div class="card-header">
-                {{ __('Register') }}
-            </div>
-
-            <div class="card-body">
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
-
-                    <div class="form-group">
-                        <label for="username" class="form-label">{{ __('Username') }}</label>
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-                        @error('username')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nama_lengkap" class="form-label">{{ __('Nama Lengkap') }}</label>
-                        <input id="nama_lengkap" type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required autocomplete="name">
-                        @error('nama_lengkap')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email" class="form-label">{{ __('Alamat Email') }}</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="form-label">{{ __('Password') }}</label>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password-confirm" class="form-label">{{ __('Konfirmasi Password') }}</label>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="no_telepon" class="form-label">{{ __('Nomor Telepon') }}</label>
-                        <input id="no_telepon" type="text" class="form-control @error('no_telepon') is-invalid @enderror" name="no_telepon" value="{{ old('no_telepon') }}" autocomplete="tel">
-                        @error('no_telepon')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-0">
-                        <button type="submit" class="btn btn-primary btn-register">
-                            {{ __('Register') }}
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="card-footer">
-                <p class="mb-0">Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></p>
-            </div>
-        </div>
+  <div class="container">
+    <div class="header">
+    <img src="/campus.jpg" alt="Gedung Kampus">
+      <div class="overlay">
+        
+        <h1>SUARA KAMPUS</h1>
+        <p class="tagline">"Dari Mahasiswa, Untuk Perubahan"</p>
+      </div>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <div class="login-box">
+      <h2>Register</h2>
+      <form action="login.blade.php" method="get">
+        <input type="text" placeholder="Usename" require>
+        <input type="text" placeholder="Password" require>
+        <input type="text" placeholder="Nama Lengkap" require>
+        <input type="email" placeholder="Email" require>
+        <input type="text" placeholder="Usename" require>
+        <input type="number" placeholder="NomorHp" require>
+        <button type="submit" href="">Daftar</button>
+        
+        <p class="mb-0">Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></p>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
