@@ -145,7 +145,7 @@
   <form action="{{ route('register') }}" method="POST">
     @csrf
     <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" value="{{ old('nama_lengkap') }}" required>
-    <input type="text" name="username" placeholder="Username" value="{{ old('username') }}" required>
+    <input type="text" name="NPM" placeholder="NPM" value="{{ old('NPM') }}" required>
     <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
     <input type="text" name="no_telepon" placeholder="No Telepon (opsional)" value="{{ old('no_telepon') }}">
     <input type="password" name="password" placeholder="Password" required>
