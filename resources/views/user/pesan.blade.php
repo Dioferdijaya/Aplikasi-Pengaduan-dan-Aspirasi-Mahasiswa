@@ -22,7 +22,7 @@
   }
   
   .container {
-    width: 100%;
+    width: 400px;
     /* width: 350px; */
     background: #fff;
     border: 1px solid #ccc;
