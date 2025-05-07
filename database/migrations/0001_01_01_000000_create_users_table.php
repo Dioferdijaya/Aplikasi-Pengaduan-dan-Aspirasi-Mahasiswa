@@ -109,6 +109,16 @@ return new class extends Migration
                   ->default('pending');
             $table->timestamps();
         });
+
+        // 9. Sessions (Laravel DB session driver)
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
+        });
     }
 
     /**
@@ -117,6 +127,7 @@ return new class extends Migration
     public function down(): void
     {
         // Drop in reverse order untuk menghindari foreign key errors
+        Schema::dropIfExists('sessions');
         Schema::dropIfExists('tanggapans');
         Schema::dropIfExists('kritik_sarans');
         Schema::dropIfExists('kategoris');
