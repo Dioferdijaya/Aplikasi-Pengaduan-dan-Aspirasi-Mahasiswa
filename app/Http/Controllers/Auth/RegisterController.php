@@ -56,8 +56,12 @@ class RegisterController extends Controller
                 ->withInput();
         }
 
-        // Tentukan domain email
-        $emailDomain = explode('@', $request->email)[1];
+        // 1. Ambil domain e-mail
+        $email  = $request->email;
+        $domain = explode('@', $email)[1] ?? '';
+
+        // 2. Tentukan role: mhs.usk.ac.id → user, lainnya (usk.ac.id) → admin
+        $role = $domain === 'mhs.usk.ac.id' ? 'user' : 'admin';
 
         // Simpan data pengguna sementara di session
         $request->session()->put('registration_data', [
@@ -66,6 +70,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'no_telepon' => $request->no_telepon,
+            'role'         => $role,
         ]);
 
         // Kirim OTP ke email
@@ -108,6 +113,7 @@ class RegisterController extends Controller
         // Ambil data registrasi dari session
         $registrationData = $request->session()->get('registration_data');
 
+
         // Buat user baru
         $user = User::create([
             'username' => $registrationData['username'],
@@ -115,17 +121,9 @@ class RegisterController extends Controller
             'email' => $registrationData['email'],
             'password' => $registrationData['password'],
             'no_telepon' => $registrationData['no_telepon'],
+            'role' => $registrationData['role'],
             'email_verified_at' => now(),
         ]);
-
-        // Tentukan role berdasarkan domain email
-        $emailDomain = $registrationData['email_domain'];
-        $roleName = ($emailDomain === 'mhs.usk.ac.id') ? 'mahasiswa' : 'admin';
-
-        $role = Role::where('nama_role', $roleName)->first();
-        if ($role) {
-            $user->roles()->attach($role->id);
-        }
 
         // Hapus data session
         $request->session()->forget('registration_data');
@@ -147,15 +145,6 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput();
-        }
-
-        // Validasi domain email
-        $email = $request->email;
-        $domain = explode('@', $email)[1] ?? '';
-        if (!in_array($domain, ['mhs.usk.ac.id', 'usk.ac.id'])) {
-            return redirect()->back()
-                ->withErrors(['email' => 'Daftar dengan email USk'])
                 ->withInput();
         }
 

@@ -19,33 +19,18 @@ return new class extends Migration
             $table->string('nama_lengkap');
             $table->string('email')->unique();
             $table->string('no_telepon')->nullable();
+            $table->enum('role',['admin','mahasiswa'])
+                  ->default('mahasiswa');
             $table->timestamp('tanggal_registrasi')->useCurrent();
             $table->timestamps();
         });
 
-        // 2. Roles
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();                          // id
-            $table->string('nama_role');
-            $table->timestamps();
-        });
-
-        // 3. Pivot user_role
-        Schema::create('role_user', function (Blueprint $table) {
-            $table->foreignId('user_id')
-                  ->constrained()
-                  ->onDelete('cascade');
-            $table->foreignId('role_id')
-                  ->constrained()
-                  ->onDelete('cascade');
-            $table->primary(['user_id','role_id']);
-        });
 
         // 4. Mahasiswa (profil mahasiswa)
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->id();                          // id
             $table->foreignId('user_id')
-                  ->constrained()
+                  ->constrained("users")
                   ->onDelete('cascade');
             $table->string('npm')->unique();
             $table->string('jurusan');
@@ -58,7 +43,7 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();                          // id
             $table->foreignId('user_id')
-                  ->constrained()
+                  ->constrained("users")
                   ->onDelete('cascade');
             $table->string('jabatan');
             $table->string('departemen');
