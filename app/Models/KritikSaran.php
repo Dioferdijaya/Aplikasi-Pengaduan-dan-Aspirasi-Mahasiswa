@@ -9,20 +9,19 @@ class KritikSaran extends Model
 {
     use HasFactory;
 
-    // Table name (opsional, akan otomatis 'kritik_sarans')
-    // protected $table = 'kritik_sarans';
+    protected $table = 'kritik_sarans';
 
-    // Field yang boleh di‐mass assign
     protected $fillable = [
         'user_id',
         'judul',
         'pesan',
         'lampiran',
         'status',
+        'tujuan'
     ];
 
     /**
-     * Relasi: satu kritik/saran dimiliki oleh satu user
+     * Get the user that sent this kritik/saran
      */
     public function user()
     {
@@ -30,10 +29,10 @@ class KritikSaran extends Model
     }
 
     /**
-     * Relasi: satu kritik/saran bisa punya banyak tanggapan
+     * Get the tanggapan for this kritik/saran
      */
     public function tanggapan()
     {
-        return $this->hasMany(Tanggapan::class, 'kritik_saran_id');
+        return $this->hasOne(Tanggapan::class);
     }
 }

@@ -12,7 +12,7 @@
     font-family: 'Segoe UI', sans-serif;
 
   }
-  
+
   body {
     background-color: #f5f5f5;
     display: flex;
@@ -20,7 +20,7 @@
     align-items: center;
     height: 100vh;
   }
-  
+
   .container {
     width: 100%;
     /* width: 350px; */
@@ -31,12 +31,12 @@
     height: 100vh;
     margin: auto;
     padding: 20px;
-    
-    
+
+
   }
-  
+
   .header {
-    
+
     background-color: #41bfb3;
     display: flex;
     justify-content: space-between;
@@ -45,7 +45,7 @@
     border-radius: 10px;
     margin-bottom: 10px;
   }
-  
+
   .profile {
     display: flex;
     align-items: center;
@@ -53,21 +53,21 @@
     color: white;
     font-weight: bold;
   }
-  
+
   .profile img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
   }
-  
+
   .notif {
     position: relative;
   }
-  
+
   .notif img {
     width: 30px;
   }
-  
+
   .dot {
     position: absolute;
     top: 0;
@@ -78,9 +78,9 @@
     border-radius: 50%;
     border: 2px solid white;
   }
-  
+
   .menu {
-    
+
     border: 2px solid #41bfb3;
     border-radius: 20px;
     padding: 5px;
@@ -88,7 +88,7 @@
     justify-content: space-around;
     margin-bottom: 30px;
   }
-  
+
   .menu button {
     padding: 6px 25px;
     border: 2px solid #41bfb3;
@@ -97,37 +97,37 @@
     cursor: pointer;
     font-weight: bold;
   }
-  
+
   .menu .active {
     background: #41bfb3;
     color: white;
   }
-  
+
   .form-section {
     padding: 10px;
   }
-  
+
   .form-section h3 {
     margin-bottom: 10px;
   }
-  
+
   form {
-    
+
     border: 2px solid #41bfb3;
     border-radius: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
-   
-    
+
+
   }
-  
+
   form label {
     font-size: 0.9em;
     margin: 5px 0 3px;
   }
-  
+
   form select,
   form textarea {
     padding: 8px;
@@ -136,11 +136,11 @@
     margin-bottom: 10px;
     resize: none;
   }
-  
+
   form textarea {
     height: 80px;
   }
-  
+
   .submit-btn {
     background-color: #41bfb3;
     color: white;
@@ -152,17 +152,17 @@
     transition: background 0.3s;
     width: 35%;
   }
-  
+
   .submit-btn:hover {
     background-color: #369e91;
   }
-  
+
   .button-container{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    
+
 
   }
  </style>
@@ -171,8 +171,8 @@
   <div class="container">
     <div class="header">
       <div class="profile">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User" />
-        <span>Hi, Ahmad !!</span>
+        <img src="{{ asset('image/bgdepan.png') }}" alt="Foto Profil" class="avatar" />
+        <h2>Hi, {{ $user->nama_lengkap ?? $user->username ?? 'User' }} !!</h2>
       </div>
       <div class="notif">
         <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Mail" />
@@ -181,9 +181,9 @@
     </div>
 
     <div class="menu">
-      <button>Beranda</button>
-      <button class="active">Pesan</button>
-      <button>Riwayat</button>
+        <a href="{{ route('user.dashboard') }}"><button>Beranda</button></a>
+        <a href="{{ route('user.pesan') }}"><button class="active">Pesan</button></a>
+        <a href="{{ route('user.riwayat') }}"><button>Riwayat</button></a>
     </div>
 
     <div class="form-section">
@@ -191,7 +191,8 @@
       <form>
         <label for="from">From :</label>
         <select id="from">
-          <option>Ahmad</option>
+          <option>{{ $user->nama_lengkap ?? 'User' }}</option>
+            <option>{{ 'anonymus' }}</option>
         </select>
 
         <label for="to">To :</label>
@@ -202,11 +203,10 @@
         <label for="pesan">Pesan :</label>
         <textarea id="pesan" placeholder="Masukkan Pesan"></textarea>
 
-        
+
       </form>
       <div class="button-container">
         <button type="submit" class="submit-btn">KIRIM</button>
-
       </div>
     </div>
   </div>
