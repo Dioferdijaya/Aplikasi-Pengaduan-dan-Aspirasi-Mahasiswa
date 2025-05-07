@@ -11,12 +11,19 @@ class UserController extends Controller
     // Dashboard mahasiswa
     public function dashboard()
     {
-        $total   = KritikSaran::where('user_id', Auth::id())->count();
-        $baru    = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
-        $proses  = KritikSaran::where('user_id', Auth::id())->where('status', 'proses')->count();
+        $user = Auth::user();
+        $total = KritikSaran::where('user_id', Auth::id())->count();
+        $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
+        $proses = KritikSaran::where('user_id', Auth::id())->where('status', 'proses')->count();
         $selesai = KritikSaran::where('user_id', Auth::id())->where('status', 'selesai')->count();
 
-        return view('user.dashboard', compact('total','baru','proses','selesai'));
+        // Fetch the latest KritikSaran with its response (if any)
+        $latestKritikSaran = KritikSaran::where('user_id', Auth::id())
+                            ->with('tanggapan')
+                            ->latest()
+                            ->first();
+
+        return view('user.dashboard', compact('user', 'total', 'baru', 'proses', 'selesai', 'latestKritikSaran'));
     }
 
     public function dataUser(): array
@@ -45,7 +52,10 @@ class UserController extends Controller
     // Form kirim pesan
     public function create()
     {
-        return view('user.pesan');
+        $user = Auth::user();
+        $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
+
+        return view('user.pesan', compact('user', 'baru'));
     }
 
     // Simpan pesan
@@ -67,16 +77,18 @@ class UserController extends Controller
         KritikSaran::create($data);
 
         return redirect()->route('user.riwayat')
-                         ->with('success','Pesan berhasil dikirim');
+                        ->with('success','Pesan berhasil dikirim');
     }
 
     // Riwayat pesan
     public function riwayat()
     {
+        $user = Auth::user();
+        $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
         $pesans = KritikSaran::where('user_id', Auth::id())
-                              ->latest()
-                              ->paginate(10);
+                             ->latest()
+                             ->paginate(10);
 
-        return view('user.riwayat', compact('pesans'));
+        return view('user.riwayat', compact('user', 'baru', 'pesans'));
     }
 }

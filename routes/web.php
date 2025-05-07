@@ -14,14 +14,13 @@ Route::get('/', fn() => redirect()->route('login'));
 Route::get('login',  [AuthController::class,'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class,'login']);
 Route::post('logout',[AuthController::class,'logout'])
-     ->name('logout')
-     ->middleware('auth');
-
+    ->name('logout')
+    ->middleware('auth');
 
 // Group untuk mahasiswa/user
 Route::middleware(['auth'])
-     ->prefix('user')->name('user.')
-     ->group(function(){
+    ->prefix('user')->name('user.')
+    ->group(function(){
     Route::get('dashboard', [UserController::class,'dashboard'])->name('dashboard');
     Route::get('pesan',     [UserController::class,'create'])   ->name('pesan');
     Route::post('pesan',    [UserController::class,'store']);
@@ -30,8 +29,8 @@ Route::middleware(['auth'])
 
 // Group untuk admin
 Route::middleware(['auth'])
-     ->prefix('admin')->name('admin.')
-     ->group(function(){
+    ->prefix('admin')->name('admin.')
+    ->group(function(){
     Route::get('dashboard',        [AdminController::class,'dashboard'])->name('dashboard');
     Route::get('pesan/{id}/balas', [AdminController::class,'showBalas'])  ->name('pesan.balas');
     Route::post('pesan/{id}/balas',[AdminController::class,'storeBalas']) ->name('pesan.balas.post');
