@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Providers\AppServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 // Root → login
@@ -16,19 +17,19 @@ Route::post('logout',[AuthController::class,'logout'])
      ->name('logout')
      ->middleware('auth');
 
-     Route::get('dashboard', [UserController::class,'dashboard'])->name('dashboard');
-     Route::get('pesan',     [UserController::class,'create'])   ->name('pesan');
-     Route::post('pesan',    [UserController::class,'store']);
-     Route::get('riwayat',   [UserController::class,'riwayat'])  ->name('riwayat');
+
 // Group untuk mahasiswa/user
-Route::middleware(['auth','can:isUser'])
+Route::middleware(['auth'])
      ->prefix('user')->name('user.')
      ->group(function(){
-  
+    Route::get('dashboard', [UserController::class,'dashboard'])->name('dashboard');
+    Route::get('pesan',     [UserController::class,'create'])   ->name('pesan');
+    Route::post('pesan',    [UserController::class,'store']);
+    Route::get('riwayat',   [UserController::class,'riwayat'])  ->name('riwayat');
 });
 
 // Group untuk admin
-Route::middleware(['auth','can:isAdmin'])
+Route::middleware(['auth'])
      ->prefix('admin')->name('admin.')
      ->group(function(){
     Route::get('dashboard',        [AdminController::class,'dashboard'])->name('dashboard');

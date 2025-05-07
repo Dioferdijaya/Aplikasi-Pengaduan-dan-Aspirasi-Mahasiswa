@@ -13,12 +13,13 @@ class User extends Authenticatable
 
     // Kolom‐kolom yang boleh di‐mass assign
     protected $fillable = [
-        'username',
+        'NPM',
         'password',
         'nama_lengkap',
         'email',
         'no_telepon',
         'tanggal_registrasi',
+        'role',
     ];
 
     // Sembunyikan ini waktu serialisasi (API / JSON)

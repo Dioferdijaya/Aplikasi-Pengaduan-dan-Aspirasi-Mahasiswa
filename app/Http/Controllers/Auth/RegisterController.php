@@ -61,7 +61,7 @@ class RegisterController extends Controller
         $domain = explode('@', $email)[1] ?? '';
 
         // 2. Tentukan role: mhs.usk.ac.id → user, lainnya (usk.ac.id) → admin
-        $role = $domain === 'mhs.usk.ac.id' ? 'user' : 'admin';
+        $role = $domain === 'mhs.usk.ac.id' ? 'mahasiswa' : 'admin';
 
         // Simpan data pengguna sementara di session
         $request->session()->put('registration_data', [
