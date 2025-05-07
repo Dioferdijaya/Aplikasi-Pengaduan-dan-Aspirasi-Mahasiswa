@@ -21,7 +21,7 @@
   }
   
   .container {
-    max-width: 100%;
+    max-width: 400px;
     /* width: 300px; */
     min-height: 100vh;
     background-color: #fff;
@@ -86,6 +86,7 @@
     margin-bottom: 20px;
     font-weight: bold;
     font-size: 30px;
+    padding-top:5px;
   }
   
   .login-box input {
@@ -128,19 +129,34 @@
     </div>
     
     <div class="login-box">
-      <h2>Register</h2>
-      <form action="login.blade.php" method="get">
-        <input type="text" placeholder="Usename" require>
-        <input type="text" placeholder="Password" require>
-        <input type="text" placeholder="Nama Lengkap" require>
-        <input type="email" placeholder="Email" require>
-        <input type="text" placeholder="Usename" require>
-        <input type="number" placeholder="NomorHp" require>
-        <button type="submit" href="">Daftar</button>
-        
-        <p class="mb-0">Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></p>
-      </form>
+  <h2>Register</h2>
+
+  {{-- Tampilkan error validasi jika ada --}}
+  @if ($errors->any())
+    <div style="color:red;">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
     </div>
+  @endif
+
+  <form action="{{ route('register') }}" method="POST">
+    @csrf
+    <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" value="{{ old('nama_lengkap') }}" required>
+    <input type="text" name="username" placeholder="Username" value="{{ old('username') }}" required>
+    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+    <input type="text" name="no_telepon" placeholder="No Telepon (opsional)" value="{{ old('no_telepon') }}">
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
+    
+    <button type="submit">Daftar</button>
+
+    <p class="mb-0">Sudah punya akun? <a href="{{ route('login') }}">Login di sini</a></p>
+  </form>
+</div>
+
   </div>
 </body>
 </html>

@@ -21,7 +21,7 @@
   }
   
   .container {
-    max-width: 100%;
+    max-width: 400px;
     /* width: 300px; */
     min-height: 100vh;
     background-color: #fff;
@@ -125,16 +125,31 @@
       </div>
     </div>
     
-    <div class="login-box">
-      <h2>LOGIN</h2>
-      <form action="halaman-pesan-user.html" method="get">
-        <input type="text" placeholder="Masukan NIP/NPM" required>
-        <input type="password" placeholder="Masukan Password" required>
+    <!-- resources/views/auth/login.blade.php -->
+<div class="login-box">
+    <h2>LOGIN</h2>
+    <form action="{{ route('login') }}" method="POST">
+        @csrf
+        <input type="email" name="email" placeholder="Masukan Email" required>
+        <input type="password" name="password" placeholder="Masukan Password" required>
         <button type="submit">LOGIN</button>
-        <p class="mb-0">Sudah punya akun? <a href="{{ route('register') }}">daftar di sini</a></p>
-        
-      </form>
-    </div>
+
+        @if ($errors->any())
+            <div style="color:red;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <p class="mb-0">
+            Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a>
+        </p>
+    </form>
+</div>
+
   </div>
 </body>
 </html>
