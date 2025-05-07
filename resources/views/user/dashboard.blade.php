@@ -187,14 +187,12 @@
       <div class="welcome">
         {{-- Menggunakan helper asset() untuk gambar avatar --}}
         <img src="{{ asset('image/bgdepan.png') }}" alt="Foto Profil" class="avatar" />
-        {{-- Placeholder untuk nama user. Diasumsikan controller akan melewatkan variabel $user --}}
-        {{-- Menggunakan ?? 'User' sebagai fallback jika $user tidak terdefinisi atau nama kosong --}}
-        <h2>Hi, {{ $user->nama_lengkap ?? $user->NPM ?? 'User' }} !!</h2>
+        {{-- Menggunakan data user yang sudah disiapkan dari controller --}}
+        <h2>Hi, {{ $user->nama_lengkap ?? $user->username ?? 'User' }} !!</h2>
       </div>
       <div class="notif">
         <i class="fas fa-envelope"></i>
-        {{-- Placeholder untuk jumlah notifikasi (pesan 'baru'). Diasumsikan controller melewatkan variabel $baru --}}
-        {{-- Tampilkan badge hanya jika ada notifikasi baru (@if($baru > 0)) --}}
+        {{-- Menggunakan variabel $baru dari controller --}}
         @if(isset($baru) && $baru > 0)
           <span class="badge">{{ $baru }}</span>
         @endif
@@ -212,10 +210,8 @@
         {{-- Menggunakan helper asset() untuk gambar profil --}}
         <img src="{{ asset('image/bgdepan.png') }}" alt="Foto Profil" />
       <div class="profile-text">
-        {{-- Placeholder untuk detail user (nama, NIM, Jenjang, Fakultas, Jurusan) --}}
-        {{-- Diasumsikan controller melewatkan variabel $user, yang mungkin memiliki relasi $user->mahasiswa --}}
-        {{-- Menggunakan ?? '...' sebagai fallback jika data tidak tersedia --}}
-        <strong>{{ $user->nama_lengkap ?? $user->username ?? 'Nama User' }} - {{ $user->mahasiswa->nim ?? 'NIM Tidak Tersedia' }}</strong>
+        {{-- Menggunakan data user yang sudah dipastikan tersedia --}}
+        <strong>{{ $user->nama_lengkap ?? 'Nama User' }} - {{ $user->NPM ?? 'NIM Tidak Tersedia' }}</strong>
         {{-- Mengecek apakah relasi mahasiswa ada sebelum menampilkan detailnya --}}
         @if(isset($user->mahasiswa))
             <p class="datauser">
@@ -242,36 +238,28 @@
 
     <div class="section-title">Tanggapan</div>
 
-    {{-- Bagian ini disiapkan untuk menampilkan KRITIK dan TANGGAPAN TERBARU --}}
-    {{-- Diasumsikan controller akan melewatkan variabel $latestKritikSaran --}}
+    {{-- Menampilkan kritik/saran terbaru yang dikirim oleh mahasiswa tersebut --}}
     @if(isset($latestKritikSaran))
-        {{-- Tampilkan kotak kritik/saran jika ada --}}
+        {{-- Tampilkan kotak kritik/saran --}}
         <div class="message-box">
-          {{-- Tetap menggunakan teks statis "Anonymous" dan "Fakultas MIPA" sesuai HTML asli --}}
-          <p><strong>From:</strong> Anonymous</p>
-          <p><strong>To:</strong> Fakultas MIPA</p>
-          {{-- Placeholder untuk isi pesan kritik --}}
+          <p><strong>From:</strong> {{ $user->nama_lengkap ?? $user->username ?? 'Anonymous' }}</p>
+          <p><strong>To:</strong> {{ $latestKritikSaran->tujuan ?? 'Fakultas MIPA' }}</p>
+          <p><strong>Judul:</strong> {{ $latestKritikSaran->judul ?? 'Tidak ada judul' }}</p>
           <p><strong>Pesan:</strong> {{ $latestKritikSaran->pesan ?? 'Pesan tidak tersedia.' }}</p>
-          {{-- Placeholder untuk tanggal kritik, menggunakan format --}}
           <p class="date">{{ $latestKritikSaran->created_at ? $latestKritikSaran->created_at->format('d F Y H:i') : 'Tanggal tidak tersedia' }}</p>
         </div>
 
         {{-- Cek apakah kritik/saran ini memiliki tanggapan --}}
-        {{-- Diasumsikan model KritikSaran memiliki relasi 'tanggapan' --}}
         @if(isset($latestKritikSaran->tanggapan))
             {{-- Tampilkan kotak tanggapan jika ada --}}
             <div class="reply-box">
-              {{-- Tetap menggunakan teks statis "Admin Fakultas MIPA" dan "Anonymous" sesuai HTML asli --}}
-              <p><strong>From:</strong> Admin Fakultas MIPA</p>
-              <p><strong>To:</strong> Anonymous</p>
-              {{-- Placeholder untuk isi tanggapan --}}
-              {{-- Diasumsikan model Tanggapan memiliki kolom 'isi_tanggapan' --}}
+              <p><strong>From:</strong> Admin {{ $latestKritikSaran->tanggapan->admin->nama ?? 'Fakultas MIPA' }}</p>
+              <p><strong>To:</strong> {{ $user->nama_lengkap ?? $user->username ?? 'Anonymous' }}</p>
               <p><strong>Pesan:</strong> {{ $latestKritikSaran->tanggapan->isi_tanggapan ?? 'Isi tanggapan tidak tersedia.' }}</p>
-              {{-- Placeholder untuk tanggal tanggapan --}}
               <p class="date">{{ $latestKritikSaran->tanggapan->created_at ? $latestKritikSaran->tanggapan->created_at->format('d F Y H:i') : 'Tanggal tidak tersedia' }}</p>
             </div>
 
-            {{-- Rating Section (tetap statis di frontend, perlu JS/Backend untuk fungsi) --}}
+            {{-- Rating Section --}}
             <div class="rating-section">
               <p>Apakah tanggapan memuaskan?</p>
               <div class="stars">
@@ -287,6 +275,7 @@
             {{-- Tampilkan pesan jika belum ada tanggapan --}}
             <div class="reply-box">
                 <p>Belum ada tanggapan untuk kritik/saran ini.</p>
+                <p class="date">Status: {{ ucfirst($latestKritikSaran->status) }}</p>
             </div>
         @endif
     @else
