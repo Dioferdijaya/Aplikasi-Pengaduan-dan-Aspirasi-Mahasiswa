@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -33,4 +34,15 @@ Route::middleware(['auth','can:isAdmin'])
     Route::get('pesan/{id}/balas', [AdminController::class,'showBalas'])  ->name('pesan.balas');
     Route::post('pesan/{id}/balas',[AdminController::class,'storeBalas']) ->name('pesan.balas.post');
     Route::get('riwayat',          [AdminController::class,'riwayat'])   ->name('riwayat');
+});
+
+Route::middleware('guest')->group(function () {
+    // Registrasi
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [RegisterController::class, 'register']);
+
+    // Verifikasi OTP
+    Route::get('/email/verify', [RegisterController::class, 'showVerificationForm'])->name('verification.notice');
+    Route::post('/email/verify', [RegisterController::class, 'verify'])->name('verification.verify');
+    Route::post('/email/resend', [RegisterController::class, 'resendOtp'])->name('verification.resend');
 });
