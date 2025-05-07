@@ -1,3 +1,4 @@
+<?php $initials = strtoupper(substr($user->nama_lengkap,0,2)) ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -182,11 +183,12 @@
   </style>
 </head>
 <body>
+
   <div class="container">
     <div class="header">
       <div class="welcome">
         {{-- Menggunakan helper asset() untuk gambar avatar --}}
-        <img src="{{ asset('image/bgdepan.png') }}" alt="Foto Profil" class="avatar" />
+        <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($initials); ?>&background=0D8ABC&color=fff&size=100" alt="Avatar" class="avatar" ">
         {{-- Placeholder untuk nama user. Diasumsikan controller akan melewatkan variabel $user --}}
         {{-- Menggunakan ?? 'User' sebagai fallback jika $user tidak terdefinisi atau nama kosong --}}
         <h2>Hi, {{ $user->nama_lengkap ?? $user->username ?? 'User' }} !!</h2>
@@ -209,7 +211,7 @@
 
     <div class="profile-box">
         {{-- Menggunakan helper asset() untuk gambar profil --}}
-        <img src="{{ asset('image/bgdepan.png') }}" alt="Foto Profil" />
+        <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($initials); ?>&background=0D8ABC&color=fff&size=100" alt="Avatar" style="border: 2px solid black; border-radius: 50%;">
       <div class="profile-text">
         {{-- Menggunakan data user yang sudah dipastikan tersedia --}}
         <strong>{{ $user->nama_lengkap ?? 'Nama User' }} - {{ $user->NPM ?? 'NIM Tidak Tersedia' }}</strong>
@@ -232,7 +234,7 @@
       {{-- Menggunakan helper route() untuk tautan Kirim Kritik --}}
       <a href="{{ route('user.pesan') }}" class="suggestion-link">
         {{-- Menggunakan helper asset() untuk ikon --}}
-        <img src="{{ asset('image/image.png') }}" alt="Ikon Kritik Saran" class="icon"> Suaramu, Arah Baru untuk Kampus Kita
+        <img src="/image.png" alt="Ikon Kritik Saran" class="icon"> Suaramu, Arah Baru untuk Kampus Kita
       </a>
       <i class="fas fa-chevron-right"></i>
     </div>
