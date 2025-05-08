@@ -62,19 +62,21 @@ return new class extends Migration
         Schema::create('kritik_sarans', function (Blueprint $table) {
             $table->id();                          // id
             $table->foreignId('user_id')
-                  ->constrained()
-                  ->onDelete('cascade');
+                ->constrained()
+                ->onDelete('cascade');
             $table->string('judul');
-            $table->text('isi_pesan');
+            $table->text('pesan');                  // Changed from isi_pesan to pesan
+            $table->string('tujuan');               // Added tujuan field
             $table->dateTime('tanggal_kirim')->useCurrent();
-            $table->enum('status',['baru','diproses','selesai'])
-                  ->default('baru');
+            $table->enum('status',['baru','proses','selesai'])  // Changed 'diproses' to 'proses'
+                ->default('baru');
             $table->unsignedTinyInteger('prioritas')
-                  ->default(1);
+                ->default(1);
             $table->foreignId('kategori_id')
-                  ->constrained('kategoris')
-                  ->onDelete('restrict');
-            $table->string('file_lampiran')->nullable();
+                ->nullable()                     // Made nullable since the form doesn't seem to use it
+                ->constrained('kategoris')
+                ->onDelete('restrict');
+            $table->string('lampiran')->nullable(); // Changed from file_lampiran to lampiran
             $table->timestamps();
         });
 
@@ -82,16 +84,16 @@ return new class extends Migration
         Schema::create('tanggapans', function (Blueprint $table) {
             $table->id();                          // id
             $table->foreignId('kritik_saran_id')
-                  ->constrained('kritik_sarans')
-                  ->onDelete('cascade');
+                ->constrained('kritik_sarans')
+                ->onDelete('cascade');
             // kami anggap admin adalah user dengan role admin
             $table->foreignId('admin_id')
-                  ->constrained('users')
-                  ->onDelete('cascade');
+                ->constrained('users')
+                ->onDelete('cascade');
             $table->dateTime('tanggal_tanggapan')->useCurrent();
             $table->text('isi_tanggapan');
             $table->enum('status_penyelesaian',['pending','selesai'])
-                  ->default('pending');
+                ->default('pending');
             $table->timestamps();
         });
 

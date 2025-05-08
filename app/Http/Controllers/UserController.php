@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KritikSaran;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -55,7 +57,10 @@ class UserController extends Controller
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
 
-        return view('user.pesan', compact('user', 'baru'));
+        // Retrieve all available categories for dropdown
+        $kategoris = Kategori::all();
+
+        return view('user.pesan', compact('user', 'baru', 'kategoris'));
     }
 
     // Simpan pesan
@@ -64,16 +69,25 @@ class UserController extends Controller
         $data = $request->validate([
             'judul'     => 'required|string|max:255',
             'pesan'     => 'required|string',
+            'tujuan'    => 'required|string|max:255',
             'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'kategori_id' => 'nullable|exists:kategoris,id',
         ]);
 
+        // Handle file upload
         if ($request->hasFile('lampiran')) {
-            $data['lampiran'] = $request->file('lampiran')->store('lampiran','public');
+            $file = $request->file('lampiran');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $data['lampiran'] = $file->storeAs('lampiran', $filename, 'public');
         }
 
+        // Set additional fields
         $data['user_id'] = Auth::id();
-        $data['status']  = 'baru';
+        $data['status'] = 'baru';
+        $data['tanggal_kirim'] = now();
+        $data['prioritas'] = 1; // Default priority
 
+        // Create the KritikSaran entry
         KritikSaran::create($data);
 
         return redirect()->route('user.riwayat')
@@ -86,9 +100,26 @@ class UserController extends Controller
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
         $pesans = KritikSaran::where('user_id', Auth::id())
+                             ->with(['kategori', 'tanggapan'])
                              ->latest()
                              ->paginate(10);
 
         return view('user.riwayat', compact('user', 'baru', 'pesans'));
     }
+
+    // Lihat detail pesan
+    public function show($id)
+    {
+        $user = Auth::user();
+        $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
+
+        $pesan = KritikSaran::where('id', $id)
+                           ->where('user_id', Auth::id())
+                           ->with(['tanggapan', 'kategori'])
+                           ->firstOrFail();
+
+        return view('user.detail', compact('user', 'baru', 'pesan'));
+    }
+
+    
 }
