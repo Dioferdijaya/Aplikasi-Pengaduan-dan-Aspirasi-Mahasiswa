@@ -50,20 +50,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // 6. Kategori kritik/saran
-        Schema::create('kategoris', function (Blueprint $table) {
-            $table->id();                          // id
-            $table->string('nama_kategori');
-            $table->text('deskripsi')->nullable();
-            $table->timestamps();
-        });
-
         // 7. Kritik & Saran
         Schema::create('kritik_sarans', function (Blueprint $table) {
             $table->id();                          // id
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->string('nama');                 // Added nama field
             $table->string('judul');
             $table->text('pesan');                  // Changed from isi_pesan to pesan
             $table->string('tujuan');               // Added tujuan field
@@ -72,10 +65,7 @@ return new class extends Migration
                 ->default('baru');
             $table->unsignedTinyInteger('prioritas')
                 ->default(1);
-            $table->foreignId('kategori_id')
-                ->nullable()                     // Made nullable since the form doesn't seem to use it
-                ->constrained('kategoris')
-                ->onDelete('restrict');
+            $table->string('kategori');
             $table->string('lampiran')->nullable(); // Changed from file_lampiran to lampiran
             $table->timestamps();
         });
@@ -86,10 +76,10 @@ return new class extends Migration
             $table->foreignId('kritik_saran_id')
                 ->constrained('kritik_sarans')
                 ->onDelete('cascade');
-            // kami anggap admin adalah user dengan role admin
             $table->foreignId('admin_id')
                 ->constrained('users')
                 ->onDelete('cascade');
+            $table->string('lampiran')->nullable();
             $table->dateTime('tanggal_tanggapan')->useCurrent();
             $table->text('isi_tanggapan');
             $table->enum('status_penyelesaian',['pending','selesai'])
@@ -117,11 +107,8 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('tanggapans');
         Schema::dropIfExists('kritik_sarans');
-        Schema::dropIfExists('kategoris');
         Schema::dropIfExists('admins');
         Schema::dropIfExists('mahasiswa');
-        Schema::dropIfExists('role_user');
-        Schema::dropIfExists('roles');
         Schema::dropIfExists('users');
     }
 };

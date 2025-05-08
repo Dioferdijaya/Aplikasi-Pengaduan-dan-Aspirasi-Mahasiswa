@@ -19,8 +19,9 @@ class KritikSaran extends Model
         'tanggal_kirim',
         'status',
         'prioritas',
-        'kategori_id',
-        'lampiran'
+        'kategori',
+        'lampiran',
+        'nama',
     ];
 
     /**
@@ -29,14 +30,6 @@ class KritikSaran extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get the kategori that owns the kritik saran.
-     */
-    public function kategori(): BelongsTo
-    {
-        return $this->belongsTo(Kategori::class);
     }
 
     /**

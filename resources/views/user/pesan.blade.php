@@ -22,7 +22,7 @@
   }
 
   .container {
-    width: 400px;
+    width: 100%;
     /* width: 350px; */
     background: #fff;
     border: 1px solid #ccc;
@@ -234,7 +234,10 @@
 
             <div class="form-group">
                 <label for="nama">From :</label>
-                <input type="text" class="form-control" value="{{ $user->nama_lengkap ?? 'Anonymous' }}" readonly>
+                <select name="nama" class="form-control" >
+                    <option value="{{ $user->nama_lengkap }}">{{ $user->nama_lengkap }}</option>
+                    <option value="Anonymous">Anonymous</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -250,12 +253,13 @@
             </div>
 
             <div class="form-group">
-                <label for="kategori_id">Kategori :</label>
-                <select name="kategori_id" class="form-control">
+                <label for="kategori">Kategori :</label>
+                <select name="kategori" class="form-control">
                     <option value="">-- Pilih Kategori --</option>
-                    @foreach($kategoris as $kategori)
-                        <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
-                    @endforeach
+                    <option value="umum">umum</option>
+                    <option value="pengaduan">pengaduan</option>
+                    <option value="saran">saran</option>
+                    <option value="kritik">kritik</option>
                 </select>
             </div>
 

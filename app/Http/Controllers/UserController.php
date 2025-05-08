@@ -54,13 +54,10 @@ class UserController extends Controller
     // Form kirim pesan
     public function create()
     {
+        $kategori = KritikSaran::select('kategori')->distinct()->get();
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
-
-        // Retrieve all available categories for dropdown
-        $kategoris = Kategori::all();
-
-        return view('user.pesan', compact('user', 'baru', 'kategoris'));
+        return view('user.pesan', compact('user', 'baru','kategori'));
     }
 
     // Simpan pesan
@@ -71,7 +68,8 @@ class UserController extends Controller
             'pesan'     => 'required|string',
             'tujuan'    => 'required|string|max:255',
             'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'kategori_id' => 'nullable|exists:kategoris,id',
+            'kategori'  => 'required|string|max:255', // Ubah validasi enum menjadi string
+            'nama'      => 'required|string|max:255', // Tambahkan validasi untuk nama pengirim
         ]);
 
         // Handle file upload
@@ -82,7 +80,7 @@ class UserController extends Controller
         }
 
         // Set additional fields
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::id(); // Tetap menyimpan ID user meskipun pesan dikirim anonim
         $data['status'] = 'baru';
         $data['tanggal_kirim'] = now();
         $data['prioritas'] = 1; // Default priority
@@ -121,5 +119,5 @@ class UserController extends Controller
         return view('user.detail', compact('user', 'baru', 'pesan'));
     }
 
-    
+
 }
