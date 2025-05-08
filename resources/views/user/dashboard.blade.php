@@ -1,3 +1,4 @@
+<?php $initials = strtoupper(substr($user->nama_lengkap,0,2)) ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -15,7 +16,7 @@
     margin: 0;
     padding: 0;
   }
-
+  
   .container {
     max-width: 400px;
     margin: auto;
@@ -24,7 +25,7 @@
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
-
+  
   .header {
     display: flex;
     justify-content: space-between;
@@ -34,23 +35,23 @@
     border-radius: 12px;
     color: white;
   }
-
+  
   .avatar {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     margin-right: 10px;
   }
-
+  
   .welcome {
     display: flex;
     align-items: center;
   }
-
+  
   .notif {
     position: relative;
   }
-
+  
   .badge {
     background: red;
     color: white;
@@ -61,13 +62,13 @@
     top: -5px;
     right: -5px;
   }
-
+  
   .nav {
     display: flex;
     justify-content: space-around;
     margin: 16px 0;
   }
-
+  
   .nav button {
     padding: 8px 12px;
     border: none;
@@ -75,12 +76,12 @@
     background: #e0f5ef;
     cursor: pointer;
   }
-
+  
   .nav .active {
     background: #278a76;
     color: white;
   }
-
+  
   .profile-box {
     display: flex;
     align-items: center;
@@ -89,19 +90,19 @@
     border-radius: 10px;
     margin-bottom: 16px;
   }
-
+  
   .profile-box img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
   }
-
+  
   .section-title {
     font-weight: bold;
     margin: 12px 0 8px;
   }
-
+  
   .suggestion-box {
     background: #bfffe2;
     display: flex;
@@ -114,11 +115,11 @@
     color: #278a76;
     font-size: 14px;
   }
-
+  
   .suggestion-box i {
     font-size: 16px;
   }
-
+  
   .suggestion-link {
     flex: 1;
     margin: 0 10px;
@@ -126,8 +127,8 @@
     color: #278a76;
     font-weight: bold;
   }
-
-
+  
+  
   .message-box, .reply-box {
     background: #f6f6f6;
     padding: 12px;
@@ -135,18 +136,18 @@
     margin: 8px 0;
     border-left: 4px solid #278a76;
   }
-
+  
   .date {
     font-size: 12px;
     color: gray;
     margin-top: 6px;
   }
-
+  
   .rating-section {
     text-align: center;
     margin-top: 16px;
   }
-
+  
   .stars button {
     font-size: 20px;
     background: none;
@@ -154,12 +155,12 @@
     cursor: pointer;
     color: #ccc;
   }
-
+  
   .stars button:hover,
   .stars button:hover ~ button {
     color: gold;
   }
-
+  
   .rate-btn {
     background: #278a76;
     color: white;
@@ -173,7 +174,7 @@
   .datauser{
     font-size: 12px;
   }
-
+  
 .icon {
   width: 40px;
   height: 40px;
@@ -182,12 +183,14 @@
   </style>
 </head>
 <body>
+
   <div class="container">
     <div class="header">
       <div class="welcome">
         {{-- Menggunakan helper asset() untuk gambar avatar --}}
-        <img src="{{ asset('image/bgdepan.png') }}" alt="Foto Profil" class="avatar" />
-        {{-- Menggunakan data user yang sudah disiapkan dari controller --}}
+        <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($initials); ?>&background=0D8ABC&color=fff&size=100" alt="Avatar" class="avatar" ">
+        {{-- Placeholder untuk nama user. Diasumsikan controller akan melewatkan variabel $user --}}
+        {{-- Menggunakan ?? 'User' sebagai fallback jika $user tidak terdefinisi atau nama kosong --}}
         <h2>Hi, {{ $user->nama_lengkap ?? $user->username ?? 'User' }} !!</h2>
       </div>
       <div class="notif">
@@ -208,7 +211,7 @@
 
     <div class="profile-box">
         {{-- Menggunakan helper asset() untuk gambar profil --}}
-        <img src="{{ asset('image/bgdepan.png') }}" alt="Foto Profil" />
+        <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($initials); ?>&background=0D8ABC&color=fff&size=100" alt="Avatar" style="border: 2px solid black; border-radius: 50%;">
       <div class="profile-text">
         {{-- Menggunakan data user yang sudah dipastikan tersedia --}}
         <strong>{{ $user->nama_lengkap ?? 'Nama User' }} - {{ $user->NPM ?? 'NIM Tidak Tersedia' }}</strong>
@@ -231,7 +234,7 @@
       {{-- Menggunakan helper route() untuk tautan Kirim Kritik --}}
       <a href="{{ route('user.pesan') }}" class="suggestion-link">
         {{-- Menggunakan helper asset() untuk ikon --}}
-        <img src="{{ asset('image/image.png') }}" alt="Ikon Kritik Saran" class="icon"> Suaramu, Arah Baru untuk Kampus Kita
+        <img src="/image.png" alt="Ikon Kritik Saran" class="icon"> Suaramu, Arah Baru untuk Kampus Kita
       </a>
       <i class="fas fa-chevron-right"></i>
     </div>
