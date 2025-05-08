@@ -54,10 +54,9 @@ class UserController extends Controller
     // Form kirim pesan
     public function create()
     {
-        $kategori = KritikSaran::select('kategori')->distinct()->get();
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
-        return view('user.pesan', compact('user', 'baru','kategori'));
+        return view('user.pesan', compact('user', 'baru'));
     }
 
     // Simpan pesan
@@ -98,7 +97,7 @@ class UserController extends Controller
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
         $pesans = KritikSaran::where('user_id', Auth::id())
-                             ->with(['kategori', 'tanggapan'])
+                             ->with(['tanggapan'])
                              ->latest()
                              ->paginate(10);
 
