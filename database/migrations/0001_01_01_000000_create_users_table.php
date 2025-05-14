@@ -50,31 +50,20 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // 6. Kategori kritik/saran
-        Schema::create('kategoris', function (Blueprint $table) {
-            $table->id();                          // id
-            $table->string('nama_kategori');
-            $table->text('deskripsi')->nullable();
-            $table->timestamps();
-        });
-
         // 7. Kritik & Saran
         Schema::create('kritik_sarans', function (Blueprint $table) {
-            $table->id();                          // id
+            $table->id();                          
             $table->foreignId('user_id')
-                ->constrained()
+                ->constrained('users')
                 ->onDelete('cascade');
             $table->string('judul');
             $table->text('isi_pesan');
             $table->dateTime('tanggal_kirim')->useCurrent();
             $table->enum('status',['baru','diproses','selesai'])
                   ->default('baru');
-            $table->unsignedTinyInteger('prioritas')
-                ->default(1);
-            $table->foreignId('kategori_id')
-                ->nullable()                     // Made nullable since the form doesn't seem to use it
-                ->constrained('kategoris')
-                ->onDelete('restrict');
+            $table->string('tujuan');
+            $table->string('from');
+            $table->string('kategori');
             $table->string('lampiran')->nullable(); // Changed from file_lampiran to lampiran
             $table->timestamps();
         });
@@ -116,7 +105,6 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('tanggapans');
         Schema::dropIfExists('kritik_sarans');
-        Schema::dropIfExists('kategoris');
         Schema::dropIfExists('admins');
         Schema::dropIfExists('mahasiswa');
         Schema::dropIfExists('role_user');

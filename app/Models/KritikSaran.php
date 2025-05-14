@@ -13,13 +13,13 @@ class KritikSaran extends Model
 
     protected $fillable = [
         'user_id',
+        'from',
         'judul',
-        'pesan',
+        'isi_pesan',
         'tujuan',
         'tanggal_kirim',
         'status',
-        'prioritas',
-        'kategori_id',
+        'kategori',
         'lampiran'
     ];
 
@@ -29,14 +29,6 @@ class KritikSaran extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get the kategori that owns the kritik saran.
-     */
-    public function kategori()
-    {
-        return $this->belongsTo(Kategori::class);
     }
 
     /**

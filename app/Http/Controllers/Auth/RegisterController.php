@@ -131,7 +131,7 @@ class RegisterController extends Controller
         Auth::login($user);
 
         // Redirect ke dashboard user setelah berhasil mendaftar
-        return redirect()->route('user.dashboard')->with('success', 'Registrasi berhasil!');
+        return redirect()->route('login')->with('success', 'Registrasi berhasil!');
     }
 
     // Kirim ulang OTP

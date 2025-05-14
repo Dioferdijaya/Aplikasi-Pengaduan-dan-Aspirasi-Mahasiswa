@@ -62,10 +62,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
+            'from' => 'required|string|max:255',
+            'tujuan' => 'required|string|max:255',
             'judul'     => 'required|string|max:255',
-            'pesan'     => 'required|string',
+            'isi_pesan'     => 'required|string',
             'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'kategori_id' => 'nullable|exists:kategoris,id',
+            'kategori' => 'nullable|string|max:255',
         ]);
 
         if ($request->hasFile('lampiran')) {
@@ -76,7 +78,6 @@ class UserController extends Controller
         $data['user_id'] = Auth::id();
         $data['status'] = 'baru';
         $data['tanggal_kirim'] = now();
-        $data['prioritas'] = 1; // Default priority
 
         KritikSaran::create($data);
 
@@ -90,25 +91,11 @@ class UserController extends Controller
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
         $pesans = KritikSaran::where('user_id', Auth::id())
-                             ->with(['kategori', 'tanggapan'])
+                             ->with([ 'tanggapan'])
                              ->latest()
                              ->paginate(10);
 
         return view('user.riwayat', compact('user', 'baru', 'pesans'));
-    }
-
-    // Lihat detail pesan
-    public function show($id)
-    {
-        $user = Auth::user();
-        $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
-
-        $pesan = KritikSaran::where('id', $id)
-                           ->where('user_id', Auth::id())
-                           ->with(['tanggapan', 'kategori'])
-                           ->firstOrFail();
-
-        return view('user.detail', compact('user', 'baru', 'pesan'));
     }
 
 

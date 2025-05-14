@@ -11,6 +11,7 @@ class AdminController extends Controller
     // Dashboard admin
     public function dashboard()
     {
+        $user = Auth::user();
         $total   = KritikSaran::count();
         $baru    = KritikSaran::where('status','baru')->count();
         $proses  = KritikSaran::where('status','proses')->count();
