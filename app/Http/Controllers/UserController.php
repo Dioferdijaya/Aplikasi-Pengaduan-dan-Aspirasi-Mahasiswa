@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KritikSaran;
-use App\Models\Kategori;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -56,6 +54,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
+
         return view('user.pesan', compact('user', 'baru'));
     }
 
@@ -65,26 +64,16 @@ class UserController extends Controller
         $data = $request->validate([
             'judul'     => 'required|string|max:255',
             'pesan'     => 'required|string',
-            'tujuan'    => 'required|string|max:255',
             'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'kategori'  => 'required|string|max:255', // Ubah validasi enum menjadi string
-            'nama'      => 'required|string|max:255', // Tambahkan validasi untuk nama pengirim
         ]);
 
-        // Handle file upload
         if ($request->hasFile('lampiran')) {
-            $file = $request->file('lampiran');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $data['lampiran'] = $file->storeAs('lampiran', $filename, 'public');
+            $data['lampiran'] = $request->file('lampiran')->store('lampiran','public');
         }
 
-        // Set additional fields
-        $data['user_id'] = Auth::id(); // Tetap menyimpan ID user meskipun pesan dikirim anonim
-        $data['status'] = 'baru';
-        $data['tanggal_kirim'] = now();
-        $data['prioritas'] = 1; // Default priority
+        $data['user_id'] = Auth::id();
+        $data['status']  = 'baru';
 
-        // Create the KritikSaran entry
         KritikSaran::create($data);
 
         return redirect()->route('user.riwayat')
@@ -97,7 +86,6 @@ class UserController extends Controller
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
         $pesans = KritikSaran::where('user_id', Auth::id())
-                             ->with(['tanggapan'])
                              ->latest()
                              ->paginate(10);
 

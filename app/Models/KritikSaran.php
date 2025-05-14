@@ -4,39 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class KritikSaran extends Model
 {
     use HasFactory;
 
+    protected $table = 'kritik_sarans';
+
     protected $fillable = [
         'user_id',
         'judul',
         'pesan',
-        'tujuan',
-        'tanggal_kirim',
-        'status',
-        'prioritas',
-        'kategori',
         'lampiran',
-        'nama',
+        'status',
+        'tujuan'
     ];
 
     /**
-     * Get the user that owns the kritik saran.
+     * Get the user that sent this kritik/saran
      */
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Get the tanggapan for the kritik saran.
+     * Get the tanggapan for this kritik/saran
      */
-    public function tanggapan(): HasMany
+    public function tanggapan()
     {
-        return $this->hasMany(Tanggapan::class);
+        return $this->hasOne(Tanggapan::class);
     }
 }

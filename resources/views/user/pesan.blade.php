@@ -118,7 +118,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 
 
   }
@@ -129,8 +129,7 @@
   }
 
   form select,
-  form textarea,
-  form input {
+  form textarea {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 6px;
@@ -139,7 +138,7 @@
   }
 
   form textarea {
-    height: 120px;
+    height: 80px;
   }
 
   .submit-btn {
@@ -163,29 +162,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-  }
 
-  .alert {
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    font-size: 14px;
-  }
 
-  .alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-  }
-
-  .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-  }
-
-  .file-input {
-    margin-top: 10px;
   }
  </style>
 </head>
@@ -198,9 +176,7 @@
       </div>
       <div class="notif">
         <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Mail" />
-        @if(isset($baru) && $baru > 0)
-          <div class="dot"></div>
-        @endif
+        <div class="dot"></div>
       </div>
     </div>
 
@@ -211,76 +187,27 @@
     </div>
 
     <div class="form-section">
-        <h2>Masukan Kritik Dan Saran</h2>
+      <h3>Masukan Kritik Dan Saran</h3>
+      <form>
+        <label for="from">From :</label>
+        <select id="from">
+          <option>{{ $user->nama_lengkap ?? 'User' }}</option>
+            <option>{{ 'anonymus' }}</option>
+        </select>
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+        <label for="to">To :</label>
+        <select id="to">
+          <option>Fakultas MIPA</option>
+        </select>
 
-        @if($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <label for="pesan">Pesan :</label>
+        <textarea id="pesan" placeholder="Masukkan Pesan"></textarea>
 
-        <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
-            @csrf
 
-            <div class="form-group">
-                <label for="nama">From :</label>
-                <select name="nama" class="form-control" >
-                    <option value="{{ $user->nama_lengkap }}">{{ $user->nama_lengkap }}</option>
-                    <option value="Anonymous">Anonymous</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="tujuan">To :</label>
-                <select name="tujuan" class="form-control" required>
-                    <option value="">-- Pilih Tujuan --</option>
-                    <option value="Fakultas MIPA">Fakultas MIPA</option>
-                    <option value="Fakultas Teknik">Fakultas Teknik</option>
-                    <option value="Fakultas Ekonomi">Fakultas Ekonomi</option>
-                    <option value="Fakultas Hukum">Fakultas Hukum</option>
-                    <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="kategori">Kategori :</label>
-                <select name="kategori" class="form-control">
-                    <option value="">-- Pilih Kategori --</option>
-                    <option value="umum">umum</option>
-                    <option value="pengaduan">pengaduan</option>
-                    <option value="saran">saran</option>
-                    <option value="kritik">kritik</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="judul">Judul :</label>
-                <input type="text" name="judul" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="pesan">Pesan :</label>
-                <textarea name="pesan" class="form-control" rows="5" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="lampiran">Lampiran (opsional) :</label>
-                <input type="file" name="lampiran" class="form-control">
-                <small class="text-muted">Format: JPG, PNG, PDF (Max: 2MB)</small>
-            </div>
-
-            <button type="submit" class="btn btn-primary">KIRIM</button>
-        </form>
+      </form>
+      <div class="button-container">
+        <button type="submit" class="submit-btn">KIRIM</button>
+      </div>
     </div>
   </div>
 </body>

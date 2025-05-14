@@ -9,17 +9,18 @@ class Tanggapan extends Model
 {
     use HasFactory;
 
-    protected $table = 'tanggapans';
+    // jika tabel bernama 'tanggapans' (default), tidak perlu di‐override
+    // protected $table = 'tanggapans';
 
     protected $fillable = [
         'kritik_saran_id',
         'admin_id',
         'isi_tanggapan',
-        'lampiran'
+        'tanggal',
     ];
 
     /**
-     * Get the kritik/saran this tanggapan belongs to
+     * Relasi: tanggapan milik satu kritik/saran
      */
     public function kritikSaran()
     {
@@ -27,7 +28,7 @@ class Tanggapan extends Model
     }
 
     /**
-     * Get the admin who created this tanggapan
+     * Relasi: tanggapan dibuat oleh satu admin (user dengan role admin)
      */
     public function admin()
     {

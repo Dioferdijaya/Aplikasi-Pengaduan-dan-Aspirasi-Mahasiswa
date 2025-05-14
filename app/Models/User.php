@@ -51,6 +51,19 @@ class User extends Authenticatable
     }
 
     /**
+     * Relasi banyak‐ke‐banyak ke roles
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'role_user',    // pivot table
+            'user_id',
+            'role_id'
+        );
+    }
+
+    /**
      * Relasi satu‐ke‐satu ke profil mahasiswa (jika ada)
      */
     public function mahasiswa()
