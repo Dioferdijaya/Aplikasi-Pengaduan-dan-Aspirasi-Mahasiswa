@@ -22,7 +22,7 @@
   }
 
   .container {
-    width: 100%;
+    width: 400px;
     /* width: 350px; */
     background: #fff;
     border: 1px solid #ccc;
@@ -204,10 +204,58 @@
         <textarea id="pesan" placeholder="Masukkan Pesan"></textarea>
 
 
+<<<<<<< HEAD
       </form>
       <div class="button-container">
         <button type="submit" class="submit-btn">KIRIM</button>
       </div>
+=======
+            <div class="form-group">
+                <label for="nama">From :</label>
+                <input type="text" class="form-control" value="{{ $user->nama_lengkap ?? 'Anonymous' }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="tujuan">To :</label>
+                <select name="tujuan" class="form-control" required>
+                    <option value="">-- Pilih Tujuan --</option>
+                    <option value="Fakultas MIPA">Fakultas MIPA</option>
+                    <option value="Fakultas Teknik">Fakultas Teknik</option>
+                    <option value="Fakultas Ekonomi">Fakultas Ekonomi</option>
+                    <option value="Fakultas Hukum">Fakultas Hukum</option>
+                    <option value="Fakultas Kedokteran">Fakultas Kedokteran</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="kategori_id">Kategori :</label>
+                <select name="kategori_id" class="form-control">
+                    <option value="">-- Pilih Kategori --</option>
+                    @foreach($kategoris as $kategori)
+                        <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="judul">Judul :</label>
+                <input type="text" name="judul" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pesan">Pesan :</label>
+                <textarea name="pesan" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="lampiran">Lampiran (opsional) :</label>
+                <input type="file" name="lampiran" class="form-control">
+                <small class="text-muted">Format: JPG, PNG, PDF (Max: 2MB)</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">KIRIM</button>
+        </form>
+>>>>>>> parent of fed6400 (pesan)
     </div>
   </div>
 </body>

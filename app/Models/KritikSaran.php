@@ -15,9 +15,12 @@ class KritikSaran extends Model
         'user_id',
         'judul',
         'pesan',
-        'lampiran',
+        'tujuan',
+        'tanggal_kirim',
         'status',
-        'tujuan'
+        'prioritas',
+        'kategori_id',
+        'lampiran'
     ];
 
     /**
@@ -29,7 +32,15 @@ class KritikSaran extends Model
     }
 
     /**
-     * Get the tanggapan for this kritik/saran
+     * Get the kategori that owns the kritik saran.
+     */
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
+    }
+
+    /**
+     * Get the tanggapan for the kritik saran.
      */
     public function tanggapan()
     {

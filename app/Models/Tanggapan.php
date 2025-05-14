@@ -9,8 +9,7 @@ class Tanggapan extends Model
 {
     use HasFactory;
 
-    // jika tabel bernama 'tanggapans' (default), tidak perlu di‐override
-    // protected $table = 'tanggapans';
+    protected $table = 'tanggapan';
 
     protected $fillable = [
         'kritik_saran_id',

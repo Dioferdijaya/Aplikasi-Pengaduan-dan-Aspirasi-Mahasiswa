@@ -23,7 +23,7 @@ Route::middleware(['auth'])
     ->group(function(){
     Route::get('dashboard', [UserController::class,'dashboard'])->name('dashboard');
     Route::get('pesan',     [UserController::class,'create'])   ->name('pesan');
-    Route::post('pesan',    [UserController::class,'store'])->name('store');
+    Route::post('pesan',    [UserController::class,'store']);
     Route::get('riwayat',   [UserController::class,'riwayat'])  ->name('riwayat');
 });
 

@@ -55,7 +55,10 @@ class UserController extends Controller
         $user = Auth::user();
         $baru = KritikSaran::where('user_id', Auth::id())->where('status', 'baru')->count();
 
-        return view('user.pesan', compact('user', 'baru'));
+        // Retrieve all available categories for dropdown
+        $kategoris = Kategori::all();
+
+        return view('user.pesan', compact('user', 'baru', 'kategoris'));
     }
 
     // Simpan pesan
@@ -65,14 +68,18 @@ class UserController extends Controller
             'judul'     => 'required|string|max:255',
             'pesan'     => 'required|string',
             'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'kategori_id' => 'nullable|exists:kategoris,id',
         ]);
 
         if ($request->hasFile('lampiran')) {
             $data['lampiran'] = $request->file('lampiran')->store('lampiran','public');
         }
 
+        // Set additional fields
         $data['user_id'] = Auth::id();
-        $data['status']  = 'baru';
+        $data['status'] = 'baru';
+        $data['tanggal_kirim'] = now();
+        $data['prioritas'] = 1; // Default priority
 
         KritikSaran::create($data);
 
