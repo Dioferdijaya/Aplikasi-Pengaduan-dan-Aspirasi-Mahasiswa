@@ -37,7 +37,7 @@ Route::middleware(['auth'])
     Route::get('riwayat',          [AdminController::class,'riwayat'])   ->name('riwayat');
 });
 
-Route::middleware('guest')->group(function () {
+
     // Registrasi
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
@@ -46,4 +46,4 @@ Route::middleware('guest')->group(function () {
     Route::get('/email/verify', [RegisterController::class, 'showVerificationForm'])->name('verification.notice');
     Route::post('/email/verify', [RegisterController::class, 'verify'])->name('verification.verify');
     Route::post('/email/resend', [RegisterController::class, 'resendOtp'])->name('verification.resend');
-});
+
