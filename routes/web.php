@@ -18,7 +18,7 @@ Route::post('logout',[AuthController::class,'logout'])
     ->middleware('auth');
 
 // Group untuk mahasiswa/user
-Route::middleware(['auth'])
+Route::middleware(['auth','can:ismahasiswa'])
     ->prefix('user')->name('user.')
     ->group(function(){
     Route::get('dashboard', [UserController::class,'dashboard'])->name('dashboard');
@@ -28,7 +28,7 @@ Route::middleware(['auth'])
 });
 
 // Group untuk admin
-Route::middleware(['auth'])
+Route::middleware(['auth','can:isAdmin'])
     ->prefix('admin')->name('admin.')
     ->group(function(){
     Route::get('dashboard',        [AdminController::class,'dashboard'])->name('dashboard');
