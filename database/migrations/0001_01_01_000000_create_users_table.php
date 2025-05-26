@@ -52,15 +52,14 @@ return new class extends Migration
 
         // 7. Kritik & Saran
         Schema::create('kritik_sarans', function (Blueprint $table) {
-            $table->id();                          
+            $table->id();
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
             $table->string('judul');
             $table->text('isi_pesan');
             $table->dateTime('tanggal_kirim')->useCurrent();
-            $table->enum('status',['baru','diproses','selesai'])
-                  ->default('baru');
+            $table->string('status')->default('baru');
             $table->string('tujuan');
             $table->string('from');
             $table->string('kategori');
@@ -80,8 +79,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->dateTime('tanggal_tanggapan')->useCurrent();
             $table->text('isi_tanggapan');
-            $table->enum('status_penyelesaian',['pending','selesai'])
-                  ->default('pending');
+            $table->string('status_penyelesaian')->default('pending');
             $table->timestamps();
         });
 

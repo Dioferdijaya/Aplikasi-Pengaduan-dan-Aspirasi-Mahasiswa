@@ -326,7 +326,7 @@
 
                     @if($pesan->lampiran)
                         <div class="message-attachment">
-                            <img src="{{ asset($pesan->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 200px; margin-bottom: 10px;">
+                            <img src="{{ asset('storage/' . $pesan->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 200px; margin-bottom: 10px; border-radius: 8px;">
                         </div>
                     @endif
 

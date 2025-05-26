@@ -47,3 +47,8 @@ Route::middleware(['auth','can:isAdmin'])
     Route::post('/email/verify', [RegisterController::class, 'verify'])->name('verification.verify');
     Route::post('/email/resend', [RegisterController::class, 'resendOtp'])->name('verification.resend');
 
+Route::post('/admin/balas/{id}', [AdminController::class, 'storeBalas'])
+    ->name('admin.storeBalas');
+
+Route::put('/admin/pesan/{id}/selesai', [AdminController::class, 'markSelesai'])
+    ->name('admin.pesan.selesai');

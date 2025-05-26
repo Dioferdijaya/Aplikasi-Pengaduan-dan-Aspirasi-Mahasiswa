@@ -40,7 +40,6 @@ class AdminController extends Controller
             'kritik_saran_id' => $pesan->id,
             'admin_id'        => Auth::id(),
             'isi_tanggapan'   => $request->tanggapan,
-            'tanggal'         => now(),
         ]);
 
         // Update status pesan
@@ -58,5 +57,15 @@ class AdminController extends Controller
                              ->paginate(10);
 
         return view('admin.riwayat', compact('pesans'));
+    }
+
+    // Tandai pesan sebagai selesai
+    public function markSelesai($id)
+    {
+        $pesan = KritikSaran::findOrFail($id);
+        $pesan->update(['status' => 'selesai']);
+
+        return redirect()->route('admin.riwayat')
+                         ->with('success', 'Pesan berhasil ditandai sebagai selesai');
     }
 }

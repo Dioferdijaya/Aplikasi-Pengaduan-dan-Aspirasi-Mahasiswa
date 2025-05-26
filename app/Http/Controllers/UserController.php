@@ -66,12 +66,14 @@ class UserController extends Controller
             'tujuan' => 'required|string|max:255',
             'judul'     => 'required|string|max:255',
             'isi_pesan'     => 'required|string',
-            'lampiran'  => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'lampiran'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'kategori' => 'nullable|string|max:255',
         ]);
 
+        $lampiranPath = null;
         if ($request->hasFile('lampiran')) {
-            $data['lampiran'] = $request->file('lampiran')->store('lampiran','public');
+            $lampiranPath = $request->file('lampiran')->store('lampiran', 'public');
+            $data['lampiran'] = $lampiranPath; // Store the path in the data array
         }
 
         // Set additional fields

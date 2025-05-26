@@ -217,7 +217,7 @@
                 </select>
             </div>
             <label for="pesan">Pesan :</label>
-            <textarea id="pesan" name="isi_pesan" placeholder="Masukkan Pesan"></textarea>
+            <textarea id="pesan" name="isi_pesan" placeholder="Masukkan Pesan" required></textarea>
 
             <div class="form-section">
                 <label for="lampiran">Lampiran (opsional) :</label>

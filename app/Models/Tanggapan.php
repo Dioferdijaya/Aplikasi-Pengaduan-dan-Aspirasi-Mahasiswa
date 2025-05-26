@@ -15,7 +15,6 @@ class Tanggapan extends Model
         'kritik_saran_id',
         'admin_id',
         'isi_tanggapan',
-        'tanggal',
     ];
 
     /**
