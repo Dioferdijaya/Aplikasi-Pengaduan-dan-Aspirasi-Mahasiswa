@@ -87,7 +87,7 @@ Sebelum memulai, pastikan sistem Anda telah terinstal:
 ### 📋 Langkah-langkah Instalasi
 1.  **Clone repository ini:**
     ```bash
-    git clone [URL Git Repository Anda]
+    git clone [URL Git Repository ]
     cd [nama-folder-proyek]
     ```
 
