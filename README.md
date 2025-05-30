@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="[URL_LOGO_PROYEK_ANDA_JIKA_ADA_ATAU_LOGO_LARAVEL_UMUM]" alt="Logo Aplikasi" width="150"/>
+  
   <h1>Aplikasi Pengaduan dan Aspirasi Mahasiswa</h1>
   <p>
     <strong>Sebuah platform untuk menyalurkan suara mahasiswa demi kemajuan bersama.</strong>
