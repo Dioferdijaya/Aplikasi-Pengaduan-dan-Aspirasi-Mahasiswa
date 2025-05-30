@@ -1,122 +1,157 @@
-# Aplikasi Pengaduan dan Aspirasi Mahasiswa
+<div align="center">
+  <img src="[URL_LOGO_PROYEK_ANDA_JIKA_ADA_ATAU_LOGO_LARAVEL_UMUM]" alt="Logo Aplikasi" width="150"/>
+  <h1>Aplikasi Pengaduan dan Aspirasi Mahasiswa</h1>
+  <p>
+    <strong>Sebuah platform untuk menyalurkan suara mahasiswa demi kemajuan bersama.</strong>
+  </p>
+  <p>
+    <img src="https://img.shields.io/badge/Laravel-[VERSI_LARAVEL_ANDA]-FF2D20?style=for-the-badge&logo=laravel" alt="Laravel Version"/>
+    <img src="https://img.shields.io/badge/PHP-[VERSI_PHP_ANDA]-777BB4?style=for-the-badge&logo=php" alt="PHP Version"/>
+    <img src="https://img.shields.io/badge/Database-MySQL-00758F?style=for-the-badge&logo=mysql" alt="Database MySQL"/>
+    <!-- Tambahkan badge lain jika perlu, misal untuk frontend framework -->
+  </p>
+</div>
 
-## Informasi Pengembang
+---
+
+## 👨‍💻 Informasi Pengembang
 - **Nama:** Dio Ferdi Jaya
 - **NIM:** 2308107010018
 
-## Deskripsi Aplikasi
+---
+
+## 🚀 Deskripsi Aplikasi
 Aplikasi Pengaduan dan Aspirasi Mahasiswa adalah sebuah sistem berbasis web yang dirancang untuk memfasilitasi mahasiswa dalam menyampaikan kritik, saran, pengaduan, serta aspirasi mereka kepada pihak terkait di lingkungan kampus. Aplikasi ini bertujuan untuk menjembatani komunikasi antara mahasiswa dan pihak manajemen atau unit layanan kampus, sehingga masukan dari mahasiswa dapat ditindaklanjuti dengan lebih efektif dan transparan.
 
-### Penjelasan Kode (Struktur dan Komponen Utama)
-- **Teknologi Utama:**
-    - Laravel [Sebutkan Versi Laravel Anda, misal: 10.x]
-    - PHP [Sebutkan Versi PHP Anda, misal: 8.1+]
-    - Composer (untuk manajemen dependensi PHP)
-    - Database: MySQL (dijalankan melalui Laragon)
-    - Frontend: HTML standar dan CSS (menggunakan file Blade Laravel untuk templating)
-- **Struktur Direktori Penting (Contoh - sesuaikan dengan struktur proyek Anda):**
-    - `app/Http/Controllers/`: Berisi controller yang menangani logika request.
-        - `PengaduanController.php`: Mengelola logika untuk membuat, menampilkan, dan memproses pengaduan dari mahasiswa.
-        - `TanggapanController.php`: Mengelola logika untuk admin dalam memberikan tanggapan terhadap pengaduan.
-        - `AuthController.php`: Menangani proses autentikasi (login, register, logout) untuk mahasiswa dan admin.
-    - `app/Models/`: Berisi model Eloquent yang berinteraksi dengan database.
-        - `User.php`: Merepresentasikan tabel `users` (mahasiswa dan admin).
-        - `Pengaduan.php`: Merepresentasikan tabel `pengaduans`, menyimpan detail pengaduan yang dikirim mahasiswa.
-        - `Tanggapan.php`: Merepresentasikan tabel `tanggapans`, menyimpan balasan dari admin terhadap pengaduan.
-    - `routes/web.php`: Mendefinisikan rute untuk aplikasi web, termasuk rute untuk autentikasi, dashboard, pengiriman pengaduan, dan pengelolaan tanggapan oleh admin.
-    - `resources/views/`: Berisi file Blade untuk tampilan.
-        - `auth/`: Folder berisi view untuk login dan register.
-        - `user/`: Folder berisi view untuk dashboard mahasiswa, form pengaduan, dan riwayat pengaduan.
-        - `admin/`: Folder berisi view untuk dashboard admin, daftar pengaduan, dan form tanggapan.
-        - `layouts/app.blade.php`: File layout utama yang digunakan oleh view lain.
-    - `database/migrations/`: Berisi file migrasi untuk skema database (tabel `users`, `pengaduans`, `tanggapans`, dll.).
-    - `database/seeders/`: Berisi file seeder untuk membuat data awal (misalnya, akun admin default, beberapa kategori pengaduan).
-- **Fitur Utama:**
-    - **Autentikasi Pengguna:** Mahasiswa dan Admin dapat melakukan login, dan mahasiswa dapat melakukan registrasi.
-    - **Pengiriman Pengaduan oleh Mahasiswa:** Mahasiswa yang sudah login dapat membuat dan mengirimkan pengaduan baru yang berisi judul, deskripsi/isi pesan, dan mungkin kategori atau tujuan pengaduan.
-    - **Pemberian Tanggapan oleh Admin:** Admin dapat melihat daftar pengaduan yang masuk, membaca detailnya, dan memberikan tanggapan atau balasan terhadap pengaduan tersebut.
-    - **Riwayat Pengaduan:** Mahasiswa dapat melihat riwayat pengaduan yang pernah mereka kirim beserta status dan tanggapan yang telah diberikan.
-    - **Notifikasi (Opsional):** Pemberitahuan kepada mahasiswa ketika pengaduannya mendapatkan tanggapan.
+---
 
-### Tampilan Antarmuka (User Interface)
-- **Halaman Login & Registrasi:** Antarmuka bagi mahasiswa untuk mendaftar dan masuk ke sistem, serta bagi admin untuk login.
-- **Dashboard Mahasiswa:** Setelah login, mahasiswa akan melihat ringkasan aktivitasnya, mungkin daftar pengaduan terbaru, dan tombol untuk membuat pengaduan baru.
-- **Form Pengaduan:** Halaman di mana mahasiswa dapat mengisi detail pengaduan mereka (judul, isi pesan, dll.) sebelum mengirimkannya.
-- **Halaman Riwayat Pengaduan (Mahasiswa):** Menampilkan daftar pengaduan yang telah dikirim oleh mahasiswa, beserta status (misalnya, "Menunggu Tanggapan", "Sudah Ditanggapi") dan detail tanggapan jika ada.
-- **Dashboard Admin:** Setelah login, admin akan melihat daftar pengaduan yang masuk, mungkin dengan filter atau urutan tertentu.
-- **Halaman Detail Pengaduan & Form Tanggapan (Admin):** Admin dapat melihat detail lengkap sebuah pengaduan dan mengisi form untuk memberikan tanggapan.
+## 🛠️ Penjelasan Teknis
 
-## Cara Instalasi dan Menjalankan Aplikasi
+### ⚙️ Teknologi Utama
+- **Framework Backend:** Laravel `[Versi Laravel Anda, misal: 10.x]`
+- **Bahasa Pemrograman:** PHP `[Versi PHP Anda, misal: 8.1+]`
+- **Manajemen Dependensi:** Composer
+- **Database:** MySQL (dijalankan melalui Laragon)
+- **Frontend:** HTML5, CSS3 (menggunakan file Blade Laravel untuk templating)
 
-### Prasyarat
-Pastikan Anda telah menginstal perangkat lunak berikut di sistem Anda:
-- PHP (versi [versi PHP Anda, misal: ^8.1])
+### 📁 Struktur Direktori Penting
+Berikut adalah beberapa direktori dan file kunci dalam struktur proyek:
+- `app/Http/Controllers/`:
+    - `PengaduanController.php`: Mengelola logika untuk membuat, menampilkan, dan memproses pengaduan dari mahasiswa.
+    - `TanggapanController.php`: Mengelola logika untuk admin dalam memberikan tanggapan terhadap pengaduan.
+    - `AuthController.php`: Menangani proses autentikasi (login, register, logout).
+- `app/Models/`:
+    - `User.php`: Merepresentasikan tabel `users` (mahasiswa dan admin).
+    - `Pengaduan.php`: Merepresentasikan tabel `pengaduans`.
+    - `Tanggapan.php`: Merepresentasikan tabel `tanggapans`.
+- `routes/web.php`: Mendefinisikan rute utama aplikasi.
+- `resources/views/`: Berisi file Blade untuk antarmuka pengguna.
+    - `auth/`: Tampilan login dan registrasi.
+    - `user/`: Tampilan untuk mahasiswa (dashboard, form pengaduan, riwayat).
+    - `admin/`: Tampilan untuk admin (dashboard, daftar pengaduan, form tanggapan).
+- `database/migrations/`: Skema database.
+- `database/seeders/`: Data awal untuk pengembangan.
+
+### ✨ Fitur Utama
+- **🔐 Autentikasi Pengguna:** Sistem login dan registrasi yang aman untuk mahasiswa dan admin.
+- **📨 Pengiriman Pengaduan:** Mahasiswa dapat dengan mudah mengirimkan pengaduan, saran, atau aspirasi.
+- **💬 Pemberian Tanggapan:** Admin dapat melihat dan merespons pengaduan yang masuk.
+- **📜 Riwayat Pengaduan:** Mahasiswa dapat melacak status dan riwayat pengaduan mereka.
+- **📊 Dashboard Informatif:** Ringkasan aktivitas untuk mahasiswa dan admin.
+
+---
+
+## 🖥️ Tampilan Antarmuka (User Interface)
+Aplikasi ini dirancang dengan antarmuka yang bersih dan intuitif untuk memudahkan pengguna.
+
+- **Halaman Login & Registrasi:** Proses masuk dan pendaftaran yang sederhana.
+- **Dashboard Mahasiswa:** Menampilkan ringkasan pengaduan dan navigasi mudah.
+- **Form Pengaduan:** Formulir yang jelas untuk menyampaikan masukan.
+- **Dashboard Admin:** Menyajikan daftar pengaduan yang perlu ditindaklanjuti.
+
+*(Disarankan untuk menyertakan beberapa screenshot di sini atau link ke folder screenshot untuk visualisasi yang lebih baik)*
+Contoh:
+`![Screenshot Dashboard](link_ke_screenshot_dashboard.png)`
+
+---
+
+## 🚀 Cara Instalasi dan Menjalankan Aplikasi
+
+### ✅ Prasyarat
+Sebelum memulai, pastikan sistem Anda telah terinstal:
+- PHP (versi `[versi PHP Anda, misal: ^8.1]`)
 - Composer
-- Laragon (yang sudah termasuk MySQL, PHP, dan Apache/Nginx)
+- Laragon (termasuk MySQL, PHP, Apache/Nginx)
 - Git
 
-### Langkah-langkah Instalasi
+### 📋 Langkah-langkah Instalasi
 1.  **Clone repository ini:**
     ```bash
-    git clone [salin URL repositori ini]
+    git clone [URL Git Repository Anda]
     cd [nama-folder-proyek]
     ```
 
-2.  **Install dependensi PHP menggunakan Composer:**
+2.  **Install dependensi PHP:**
     ```bash
     composer install
     ```
 
-3.  **Salin file environment example dan buat file `.env`:**
+3.  **Buat file environment `.env`:**
+    Salin dari file contoh:
     ```bash
     cp .env.example .env
     ```
-    (Untuk Windows, jika menggunakan Command Prompt biasa, gunakan `copy .env.example .env`)
+    *(Windows CMD: `copy .env.example .env`)*
 
 4.  **Generate application key:**
     ```bash
     php artisan key:generate
     ```
 
-5.  **Konfigurasi file `.env`:**
-    Buka file `.env` dan sesuaikan konfigurasi database Anda. Jika menggunakan Laragon dengan pengaturan default, biasanya seperti ini untuk MySQL:
+5.  **Konfigurasi Database di `.env`:**
+    Buka file `.env` dan sesuaikan detail koneksi database Anda. Contoh untuk MySQL di Laragon:
     ```env
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
-    DB_DATABASE=nama_database_proyek_anda  # Ganti dengan nama database yang Anda buat di Laragon
+    DB_DATABASE=nama_database_proyek_anda  # GANTI INI
     DB_USERNAME=root
-    DB_PASSWORD=                         # Biasanya kosong untuk default Laragon
+    DB_PASSWORD=                         # Biasanya kosong
     ```
-    *Pastikan Anda sudah membuat database `nama_database_proyek_anda` melalui Laragon (misalnya via HeidiSQL atau tombol "Database" di Laragon).*
+    **Penting:** Buat database dengan nama `nama_database_proyek_anda` melalui Laragon (misalnya via HeidiSQL).
 
-6.  **Jalankan migrasi database untuk membuat tabel-tabel:**
+6.  **Jalankan Migrasi Database:**
+    Perintah ini akan membuat semua tabel yang dibutuhkan:
     ```bash
     php artisan migrate
     ```
 
-7.  **(Opsional) Jalankan seeder untuk mengisi data awal (jika ada):**
+7.  **(Opsional) Jalankan Seeder (jika ada):**
+    Untuk mengisi data awal ke database:
     ```bash
     php artisan db:seed
     ```
-    Anda juga bisa menggabungkan langkah 6 dan 7:
-    ```bash
-    php artisan migrate --seed
-    ```
+    Atau gabungkan dengan migrasi: `php artisan migrate --seed`
 
-8.  **(Opsional, jika menggunakan penyimpanan publik) Buat symbolic link untuk storage:**
+8.  **(Opsional) Symbolic Link untuk Storage:**
+    Jika aplikasi Anda menggunakan penyimpanan publik:
     ```bash
     php artisan storage:link
     ```
 
-9.  **Jalankan server pengembangan Laravel:**
-    (Pastikan Laragon Anda sudah berjalan, khususnya Apache/Nginx dan MySQL)
+9.  **Jalankan Aplikasi:**
+    (Pastikan Laragon (Apache/Nginx & MySQL) Anda berjalan)
     ```bash
     php artisan serve
     ```
-    Aplikasi akan berjalan di `http://127.0.0.1:8000` atau `http://localhost:8000`. Anda juga bisa mengaksesnya melalui Virtual Host yang dibuat Laragon jika sudah dikonfigurasi (misalnya `nama-proyek.test`).
+    Buka browser dan akses `http://127.0.0.1:8000` atau `http://localhost:8000`. Anda juga bisa menggunakan Virtual Host dari Laragon (misal: `nama-proyek.test`).
 
 ---
+
+<div align="center">
+  Made with  by Dio Ferdi Jaya
+partner Abdurrahman Marzuki
+</div>
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
