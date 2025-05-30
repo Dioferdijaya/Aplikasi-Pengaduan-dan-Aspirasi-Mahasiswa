@@ -5,8 +5,8 @@
     <strong>Sebuah platform untuk menyalurkan suara mahasiswa demi kemajuan bersama.</strong>
   </p>
   <p>
-    <img src="https://img.shields.io/badge/Laravel-[VERSI_LARAVEL_ANDA]-FF2D20?style=for-the-badge&logo=laravel" alt="Laravel Version"/>
-    <img src="https://img.shields.io/badge/PHP-[VERSI_PHP_ANDA]-777BB4?style=for-the-badge&logo=php" alt="PHP Version"/>
+    <img src="https://img.shields.io/badge/Laravel--FF2D20?style=for-the-badge&logo=laravel" alt="Laravel Version"/>
+    <img src="https://img.shields.io/badge/PHP--777BB4?style=for-the-badge&logo=php" alt="PHP Version"/>
     <img src="https://img.shields.io/badge/Database-MySQL-00758F?style=for-the-badge&logo=mysql" alt="Database MySQL"/>
     <!-- Tambahkan badge lain jika perlu, misal untuk frontend framework -->
   </p>
