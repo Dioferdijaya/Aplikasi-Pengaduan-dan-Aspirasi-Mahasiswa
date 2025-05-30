@@ -1,6 +1,6 @@
 <div align="center">
   
-  <h1>Aplikasi Pengaduan dan Aspirasi Mahasiswa</h1>
+  <h1>Aplikasi Pengaduan dan Aspirasi Mahasiswa "Suara Kampus"</h1>
   <p>
     <strong>Sebuah platform untuk menyalurkan suara mahasiswa demi kemajuan bersama.</strong>
   </p>
