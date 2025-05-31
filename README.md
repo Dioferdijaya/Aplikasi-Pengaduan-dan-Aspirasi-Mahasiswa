@@ -69,9 +69,7 @@ Aplikasi ini dirancang dengan antarmuka yang bersih dan intuitif untuk memudahka
 - **Form Pengaduan:** Formulir yang jelas untuk menyampaikan masukan.
 - **Dashboard Admin:** Menyajikan daftar pengaduan yang perlu ditindaklanjuti.
 
-*(Disarankan untuk menyertakan beberapa screenshot di sini atau link ke folder screenshot untuk visualisasi yang lebih baik)*
-Contoh:
-`![Screenshot Dashboard](link_ke_screenshot_dashboard.png)`
+
 
 ---
 
@@ -118,7 +116,7 @@ Sebelum memulai, pastikan sistem Anda telah terinstal:
     DB_USERNAME=root
     DB_PASSWORD=                         # Biasanya kosong
     ```
-    **Penting:** Buat database dengan nama `nama_database_proyek_anda` melalui Laragon (misalnya via HeidiSQL).
+    
 
 6.  **Jalankan Migrasi Database:**
     Perintah ini akan membuat semua tabel yang dibutuhkan:
